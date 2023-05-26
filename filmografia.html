@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/icons8-totoro-48.ico"/>
+  <title>Studio Ghibli</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header id="header">
+    <a><img class="logo-icon" src="img/totoro.gif"></a>
+    <h1>Filmografia</h1>
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">Menu
+        <span id="hamburger"></span>
+      </button>
+      <ul id="menu" role="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="studio.html">O Estúdio Ghibli</a></li>
+        <li><a href="diretores.html">Diretores</a></li>
+        <li><a href="filmografia.html">Filmografia</a></li>
+        <li><a href="filtros.html">Filtros de Busca</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="content">
+    <!-- Lista de todos os filmes -->
+    <section class="flip-container">
+      <div class="flipper">
+        <div id="films-container" class="films-container"></div>
+        <div id="card"></div>
+        <div id="movie-container"></div>
+    </section>
+
+  </main>
+  <footer id="footer"><p>Desenvolvido por Vitória Victor e Marina Cordeiro</p></footer>
+  <script src="lista.js" type="module"></script>
+  <script src="data.js" type="module"></script>
+</body>
+</html>
