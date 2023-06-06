@@ -5,7 +5,7 @@ const data = {
       const data = await response.json();
       return data.films || [];
     } catch (error) {
-      console.error('Ocorreu um erro ao obter os dados dos filmes:', error);
+      // console.error('Ocorreu um erro ao obter os dados dos filmes:', error);
       return [];
     }
   },
@@ -18,7 +18,7 @@ const data = {
       const uniqueDirectors = directors.filter((director, index) => directors.indexOf(director) === index);
       return uniqueDirectors;
     } catch (error) {
-      console.error('Ocorreu um erro ao obter os diretores:', error);
+      // console.error('Ocorreu um erro ao obter os diretores:', error);
       return [];
     }
   }
@@ -32,26 +32,22 @@ export function filterItemsBySearchTerm(movies, searchTerm) {
 }
 
 export function filterByDirector(movies, director) {
-  if (director === "all") {
+  if (director === 'all') {
     return movies;
   } else {
     return movies.filter(movie => movie.director === director);
   }
 }
 
-export function calculatePercentage(filteredMovies, movies, filterByDirector) {
-  if (filterByDirector === 'all') {
-    return '100%';
+export function calculatePercentage(filteredMovies, totalMoviesCount, selectedDirector) {
+  if (selectedDirector === 'all') {
+    return '';
   } else {
-    const filteredMoviesCount = filteredMovies.filter(movie => movie.director === filterByDirector).length;
-    const totalMoviesCount = movies;
-    
+    const filteredMoviesCount = filteredMovies.length;
     const percentage = (filteredMoviesCount / totalMoviesCount) * 100;
-    return Math.round(percentage) + '%';
+    return 'Os filmes desse diretor representam ' + Math.round(percentage) + '% do total dos filmes.';
   }
 }
-
-
 
 export function filterCharactersByMovie(movies, title) {
   if (title === "all") {
@@ -105,7 +101,7 @@ export function sortByRottenTomatoesLow(movies) {
 
 let movies = [];
 
-export function fetchMovies(callback) {
+function fetchMovies(callback) {
   if (typeof fetch !== 'undefined') {
     fetch('./data/ghibli/ghibli.json')
       .then(response => response.json())
@@ -119,14 +115,11 @@ export function fetchMovies(callback) {
     callback(new Error('Fetch is not supported.'));
   }
 }
-
-// Em algum lugar do seu código, chame a função fetchMovies() para obter os filmes
 fetchMovies((error, data) => {
   if (error) {
-    console.error('Error fetching data:', error);
+    return [];
   } else {
     movies = data;
-    // Faça algo com os filmes, como exibir na tela
   }
 });
 
