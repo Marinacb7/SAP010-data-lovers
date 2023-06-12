@@ -35,9 +35,13 @@
     "commit": "df7115b8ec46293bf1e868fdedcc42e9b3861226"
   },
   "dependencies": {
+    "core-js": "^3.30.2",
     "es6-promise": "^4.2.8",
     "jsdom": "^22.1.0",
+    "mocha": "^10.2.0",
     "node-fetch": "^3.3.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "regenerator-runtime": "^0.13.11",
+    "sinon": "^15.1.0"
   }
 }

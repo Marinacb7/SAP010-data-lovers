@@ -1,7 +1,18 @@
+export async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Ocorreu um erro ao obter os dados dos filmes:', error);
+    return [];
+  }
+}
+
 const data = {
   getMovies: async function () {
     try {
-      const response = await fetch('./data/ghibli/ghibli.json');
+      const response = await fetchData('./data/ghibli/ghibli.json');
       const data = await response.json();
       return data.films || [];
     } catch (error) {
@@ -12,7 +23,7 @@ const data = {
 
   getDirectors: async function () {
     try {
-      const response = await fetch('./data/ghibli/ghibli.json');
+      const response = await fetchData('./data/ghibli/ghibli.json');
       const data = await response.json();
       const directors = data.films.map((film) => film.director);
       const uniqueDirectors = directors.filter((director, index) => directors.indexOf(director) === index);
@@ -64,14 +75,10 @@ export function filterCharactersByMovie(movies, title) {
 }
 
 export function filterByGender(movies, selectedGender) {
-  const filteredPeople = [];
   if (selectedGender === "all") {
     return movies.flatMap(movie => movie.people);
   }
-  for (const movie of movies) {
-    const people = movie.people.filter(person => person.gender.toLowerCase() === selectedGender.toLowerCase());
-    filteredPeople.push(...people);
-  }
+  const filteredPeople = movies.flatMap(movie => movie.people.filter(person => person.gender.toLowerCase() === selectedGender.toLowerCase()));
   return filteredPeople;
 }
 
@@ -101,27 +108,12 @@ export function sortByRottenTomatoesLow(movies) {
 
 let movies = [];
 
-function fetchMovies(callback) {
-  if (typeof fetch !== 'undefined') {
-    fetch('./data/ghibli/ghibli.json')
-      .then(response => response.json())
-      .then(data => {
-        callback(null, data.films);
-      })
-      .catch(error => {
-        callback(error);
-      });
-  } else {
-    callback(new Error('Fetch is not supported.'));
-  }
-}
-fetchMovies((error, data) => {
-  if (error) {
-    return [];
-  } else {
-    movies = data;
-  }
-});
-
+fetchData('./data/ghibli/ghibli.json')
+  .then(data => {
+    movies = data.films;
+  })
+  .finally(() => {
+  })
+  
 export { data };
 export { movies };
